@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пилатес: гармония тела и духа</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-light: #f5f0ff;
+            --primary: #e6d4ff;
+            --primary-dark: #d0b7ff;
+            --accent: #9d6bff;
+            --accent-dark: #7c3aed;
+            --text-dark: #3a2c5a;
+            --text-light: #5a4a7a;
+            --white: #ffffff;
+            --shadow: rgba(157, 107, 255, 0.15);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            color: var(--accent-dark);
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Навигация */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-dark);
+            background-color: rgba(157, 107, 255, 0.1);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 80%;
+        }
+
+        /* Страницы */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 4rem;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Герой секция */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(230, 212, 255, 0.8), rgba(245, 240, 255, 0.9));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px var(--shadow);
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(157, 107, 255, 0.3);
+        }
+
+        /* Секции контента */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 3rem 0 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 1rem auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.4s; }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(157, 107, 255, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            color: var(--accent);
+        }
+
+        .card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.3s;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Галерея */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 250px;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 0.8s forwards;
+        }
+
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.6s; }
+
+        /* Блок с цитатой */
+        .quote-block {
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+            color: white;
+            padding: 3rem;
+            border-radius: 16px;
+            margin: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        .quote-block::before {
+            content: '"';
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15rem;
+            color: rgba(255, 255, 255, 0.1);
+            top: -50px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 1.2rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* Список преимуществ */
+        .benefits-list {
+            margin: 2rem 0;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(157, 107, 255, 0.08);
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideInRight 0.8s forwards;
+        }
+
+        .benefit-item:nth-child(2) { animation-delay: 0.2s; }
+        .benefit-item:nth-child(3) { animation-delay: 0.4s; }
+        .benefit-item:nth-child(4) { animation-delay: 0.6s; }
+        .benefit-item:nth-child(5) { animation-delay: 0.8s; }
+
+        .benefit-icon {
+            background-color: rgba(157, 107, 255, 0.1);
+            color: var(--accent);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Футер */
+        footer {
+            background: linear-gradient(to right, var(--accent-dark), var(--text-dark));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background-color: white;
+            color: var(--accent-dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Индикатор загрузки */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid rgba(157, 107, 255, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page {
+                padding-top: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Индикатор загрузки -->
+    <div class="page-loader" id="pageLoader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Шапка сайта -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo" data-page="home">
+                <i class="fas fa-spa"></i>
+                <span>Пилатес</span>
+            </a>
+            
+            <nav>
+                <a href="#" class="nav-link active" data-page="home">Главная</a>
+                <a href="#" class="nav-link" data-page="about">О пилатесе</a>
+                <a href="#" class="nav-link" data-page="exercises">Упражнения</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главная страница -->
+    <section id="home" class="page active">
+        <div class="container">
+            <div class="hero">
+                <h1>Пилатес: гармония тела и духа</h1>
+                <p>Осознанное движение, которое укрепляет тело, успокаивает ум и возвращает баланс в вашу жизнь. Откройте для себя искусство контрологии.</p>
+                <a href="#" class="btn" data-page="about">Узнать больше</a>
+            </div>
+
+            <h2 class="section-title">Почему выбирают пилатес</h2>
+
+            <div class="content-grid">
+                <div class="card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Гибкость">
+                    </div>
+                    <h3><i class="fas fa-child"></i> Гибкость и сила</h3>
+                    <p>Пилатес развивает одновременно гибкость и мышечную силу, создавая гармоничное, сбалансированное тело без перегрузок.</p>
+                </div>
+
+                <div class="card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Осанка">
+                    </div>
+                    <h3><i class="fas fa-user-check"></i> Идеальная осанка</h3>
+                    <p>Регулярные занятия пилатесом корректируют осанку, избавляют от болей в спине и формируют правильное положение тела в пространстве.</p>
+                </div>
+
+                <div class="card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Дыхание">
+                    </div>
+                    <h3><i class="fas fa-wind"></i> Дыхание и осознанность</h3>
+                    <p>Осознанное дыхание — основа пилатеса. Оно насыщает организм кислородом, успокаивает нервную систему и повышает концентрацию.</p>
+                </div>
+            </div>
+
+            <div class="quote-block">
+                <p class="quote-text">"За 10 занятий вы почувствуете разницу, за 20 — увидите разницу, а за 30 — у вас будет совершенно новое тело."</p>
+                <p class="quote-author">— Джозеф Пилатес, основатель метода</p>
+            </div>
+
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Пилатес в группе">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Индивидуальное занятие">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w-800&q=80" alt="Растяжка">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Страница "О пилатесе" -->
+    <section id="about" class="page">
+        <div class="container">
+            <div class="hero">
+                <h1>Что такое пилатес?</h1>
+                <p>Метод физической подготовки, разработанный Джозефом Пилатесом в начале XX века. Это система упражнений, направленная на развитие силы, гибкости и осознанности тела.</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fas fa-history"></i> История возникновения</h3>
+                    <p>Метод был создан Джозефом Пилатесом в 1920-х годах. Первоначально он назывался "Контрология" — наука о контроле. Пилатес разработал свою систему, основываясь на знаниях восточных и западных практик, включая йогу, тайцзи и греческую гимнастику.</p>
+                    <p>Во время Первой мировой войны Пилатес помогал раненым солдатам с реабилитацией, разработав специальные упражнения на больничных койках. Это стало прообразом современного оборудования для пилатеса.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-bullseye"></i> Основные принципы</h3>
+                    <p>Пилатес строится на шести ключевых принципах, которые отличают его от других физических практик:</p>
+                    <ul style="padding-left: 1.5rem; margin-top: 1rem; color: var(--text-light);">
+                        <li style="margin-bottom: 0.5rem;">Концентрация</li>
+                        <li style="margin-bottom: 0.5rem;">Центрирование</li>
+                        <li style="margin-bottom: 0.5rem;">Контроль</li>
+                        <li style="margin-bottom: 0.5rem;">Точность</li>
+                        <li style="margin-bottom: 0.5rem;">Дыхание</li>
+                        <li style="margin-bottom: 0.5rem;">Плавность</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="section-title">Преимущества пилатеса</h2>
+
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div>
+                        <h3>Улучшение здоровья</h3>
+                        <p>Пилатес укрепляет сердечно-сосудистую систему, улучшает кровообращение и повышает общую выносливость организма.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <h3>Психическое равновесие</h3>
+                        <p>Сочетание физических упражнений с дыхательными практиками снижает уровень стресса и повышает концентрацию внимания.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div>
+                        <h3>Реабилитация</h3>
+                        <p>Пилатес широко используется для восстановления после травм и операций благодаря щадящему воздействию на суставы и позвоночник.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div>
+                        <h3>Баланс и координация</h3>
+                        <p>Упражнения пилатеса развивают проприоцепцию (ощущение положения тела в пространстве) и улучшают координацию движений.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-container" style="height: 400px; margin: 3rem 0;">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Занятие пилатесом">
+            </div>
+        </div>
+    </section>
+
+    <!-- Страница "Упражнения" -->
+    <section id="exercises" class="page">
+        <div class="container">
+            <div class="hero">
+                <h1>Базовые упражнения пилатеса</h1>
+                <p>Познакомьтесь с основными упражнениями, которые составляют фундамент практики пилатеса и доступны даже новичкам.</p>
+            </div>
+
+            <h2 class="section-title">Топ-5 упражнений для начинающих</h2>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fas fa-1"></i> Сотня (The Hundred)</h3>
+                    <p>Классическое разогревающее упражнение, которое активизирует глубокие мышцы живота и улучшает дыхание.</p>
+                    <p><strong>Техника:</strong> Лежа на спине, поднимите ноги под углом 45°, голову и плечи оторвите от пола. Делайте короткие движения руками вверх-вниз, синхронизируя с дыханием.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-2"></i> Круги ногами (Leg Circles)</h3>
+                    <p>Упражнение для укрепления мышц кора и улучшения подвижности тазобедренных суставов.</p>
+                    <p><strong>Техника:</strong> Лежа на спине, одна нога вытянута на полу, другая поднята вертикально. Медленно описывайте круги поднятой ногой, сохраняя таз неподвижным.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-3"></i> Растяжка позвоночника (Spine Stretch)</h3>
+                    <p>Упражнение для увеличения гибкости позвоночника и снятия напряжения в спине.</p>
+                    <p><strong>Техника:</strong> Сидя с прямыми ногами, на выдохе медленно округляйте позвоночник, опуская голову и тянясь руками вперед.</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3><i class="fas fa-4"></i> Плавание (Swimming)</h3>
+                    <p>Упражнение для укрепления мышц спины, ягодиц и задней поверхности бедра.</p>
+                    <p><strong>Техника:</strong> Лежа на животе, одновременно поднимайте противоположные руку и ногу, имитируя плавательные движения.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-5"></i> Скручивание (Roll Up)</h3>
+                    <p>Упражнение для развития силы мышц живота и гибкости позвоночника.</p>
+                    <p><strong>Техника:</strong> Лежа на спине, медленно поднимайтесь, скручивая позвоночник позвонок за позвонком, затем так же медленно возвращайтесь назад.</p>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-dumbbell"></i> Оборудование</h3>
+                    <p>Для продвинутых занятий используется специальное оборудование: реформер, кадиллак, стул и бочка. Но большинство упражнений можно выполнять на коврике без дополнительного инвентаря.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Галерея упражнений</h2>
+
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Упражнение 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Упражнение 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Упражнение 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Упражнение 4">
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="#" class="btn" data-page="home">На главную</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-spa"></i> Пилатес
+                </div>
+                <p>Искусство гармонии тела и духа. Практикуйте осознанность с каждым движением.</p>
+                
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                </div>
+                
+                <nav style="margin-top: 1.5rem;">
+                    <a href="#" class="nav-link" data-page="home" style="color: white;">Главная</a>
+                    <a href="#" class="nav-link" data-page="about" style="color: white;">О пилатесе</a>
+                    <a href="#" class="nav-link" data-page="exercises" style="color: white;">Упражнения</a>
+                </nav>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 Сайт о пилатесе. Все права защищены. Создано с любовью к движению.</p>
+                <p style="margin-top: 0.5rem;">Изображения предоставлены Unsplash</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Имитация загрузки страницы
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('hidden');
+            }, 800);
+        });
+
+        // Навигация по страницам
+        document.querySelectorAll('.nav-link, .btn[data-page], .footer-logo').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Получаем целевую страницу
+                const targetPage = this.getAttribute('data-page');
+                
+                // Скрываем текущую активную страницу
+                document.querySelector('.page.active').classList.remove('active');
+                
+                // Обновляем активную ссылку в навигации
+                document.querySelectorAll('.nav-link').forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                
+                // Если кликнули на ссылку в навигации, делаем ее активной
+                if (this.classList.contains('nav-link')) {
+                    this.classList.add('active');
+                } else {
+                    // Если кликнули на кнопку, находим соответствующую ссылку в навигации
+                    const correspondingNavLink = document.querySelector(`.nav-link[data-page="${targetPage}"]`);
+                    if (correspondingNavLink) {
+                        correspondingNavLink.classList.add('active');
+                    }
+                }
+                
+                // Показываем индикатор загрузки
+                document.getElementById('pageLoader').classList.remove('hidden');
+                
+                // Задержка для плавного перехода
+                setTimeout(() => {
+                    // Показываем целевую страницу
+                    document.getElementById(targetPage).classList.add('active');
+                    
+                    // Прокручиваем к началу страницы
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                    
+                    // Скрываем индикатор загрузки
+                    document.getElementById('pageLoader').classList.add('hidden');
+                }, 500);
+            });
+        });
+
+        // Плавное появление элементов при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Наблюдаем за карточками и другими анимируемыми элементами
+        document.querySelectorAll('.card, .gallery-item, .quote-block, .benefit-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Обработка формы (если бы она была)
+        console.log('Сайт о пилатесе загружен! Приятного просмотра!');
+    </script>
+</body>
+</html>
